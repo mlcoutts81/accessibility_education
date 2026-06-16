@@ -64,7 +64,7 @@
             border-color: #bcaaa4 !important;
         }
 
-        /* Active styling markers for filter filters */
+        /* Active styling markers for filters */
         .filter-active-apple { background-color: #2563eb !important; color: #ffffff !important; border-color: #1d4ed8 !important; }
         .filter-active-chrome { background-color: #d97706 !important; color: #ffffff !important; border-color: #b45309 !important; }
         .filter-active-microsoft { background-color: #0d9488 !important; color: #ffffff !important; border-color: #0f766e !important; }
@@ -94,7 +94,7 @@
                 <span class="inline-flex items-center gap-1.5 bg-indigo-500 text-white font-semibold text-xs px-2.5 py-1 rounded">
                     Scotland Context Enabled
                 </span>
-                <span class="text-xs text-slate-300 hidden sm:inline">Supports Glow accounts, CfE Inclusion & SQA digital frameworks</span>
+                <span class="text-xs text-slate-300 hidden sm:inline">Supports Glow accounts, CfE Inclusion & Qualifications Scotland (QS) frameworks</span>
             </div>
 
             <!-- Right Side: User Controls -->
@@ -151,7 +151,7 @@
     <!-- Main Content Area -->
     <main id="mainContent" class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
         
-        <!-- Quick Guidance Callout for Scotch Classrooms -->
+        <!-- Quick Guidance Callout for Scottish Classrooms -->
         <section class="no-print bg-amber-50 border-l-4 border-amber-500 rounded-r-lg p-4 mb-8 shadow-sm transition-all card-bg text-slate-800" aria-label="Scottish Classroom Implementation Context">
             <div class="flex gap-3">
                 <div class="text-amber-600 flex-shrink-0 mt-0.5">
@@ -163,7 +163,7 @@
                 <div>
                     <h2 class="font-bold text-amber-900 text-sm md:text-base">Scottish Classroom Implementation Guide:</h2>
                     <p class="text-xs md:text-sm mt-1 leading-relaxed">
-                        Many of these features are directly accessible with single sign-ons via the national <strong class="text-amber-950 font-bold">Glow platform</strong> (for Microsoft and Google suites) and are approved for usage during assessments by the <strong class="text-amber-950 font-bold">SQA (Scottish Qualifications Authority)</strong> when configured in line with pupils' specific assessments and learning support plans (e.g., Digital Question Papers).
+                        Many of these features are directly accessible with single sign-ons via the national <strong class="text-amber-950 font-bold">Glow platform</strong> (for Microsoft and Google suites) and are approved for usage during assessments by <strong class="text-amber-950 font-bold">Qualifications Scotland (QS)</strong> when configured in line with pupils' specific assessments and learning support plans (e.g., Digital Question Papers).
                     </p>
                 </div>
             </div>
@@ -184,7 +184,7 @@
                 <div class="md:col-span-4">
                     <label for="searchBar" class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Free-text Search</label>
                     <div class="relative">
-                        <input type="text" id="searchBar" oninput="runFilterQuery()" placeholder="e.g. SQA, dyslexia, reading, eye tracking" 
+                        <input type="text" id="searchBar" oninput="runFilterQuery()" placeholder="e.g. QS, dyslexia, reading, eye tracking" 
                                class="w-full pl-10 pr-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none transition-all input-field text-slate-800 text-sm"
                                aria-controls="matrixGrid">
                         <!-- Search Magnifying Glass Icon -->
@@ -396,7 +396,7 @@
 
     <!-- App Data Model Object and Engine Script -->
     <script>
-        // High fidelity comprehensive features list
+        // High fidelity comprehensive features list updated to Qualifications Scotland (QS)
         const inclusiveFeatures = [
             // iPadOS Features
             {
@@ -405,7 +405,7 @@
                 category: "Vision",
                 title: "Spoken Content (Speak Screen/Selection)",
                 desc: "Reads digital text, documents, or entire web resources aloud using over 80 natural-sounding localized voices. Allows adjustable speaking speeds to accommodate processing delay thresholds.",
-                scotlandUse: "Great for SQA Digital Question paper accommodations. Provides reading support for early learners or those experiencing dyslexia barriers."
+                scotlandUse: "Great for Qualifications Scotland (QS) Digital Question paper accommodations. Provides reading support for early learners or those experiencing dyslexia barriers."
             },
             {
                 id: "ipad_display_accom",
@@ -445,7 +445,7 @@
                 category: "Cognitive",
                 title: "Guided Access Mode",
                 desc: "Safely locks the entire operating interface to run only a single specified learning app. Allows teachers to disable touch response in custom geometric zones on screen.",
-                scotlandUse: "Widely used across classes to manage distraction triggers for neurodivergent learners or to safely secure iPads for internal assessments."
+                scotlandUse: "Widely used across classes to manage distraction triggers for neurodivergent learners or to safely secure iPads for internal Qualifications Scotland (QS) assessments."
             },
             {
                 id: "ipad_dictation",
@@ -561,7 +561,7 @@
                 category: "Vision",
                 title: "Immersive Reader Text Tools",
                 desc: "Allows dynamic layout resizing, customized high-readability background themes (such as sepia or grey), and specialized letter spacing styles.",
-                scotlandUse: "Available as a standard feature across all Scottish schools via the national Glow Microsoft portal."
+                scotlandUse: "Available as a standard feature across all Scottish schools via the national Glow Microsoft portal. Essential support for Qualifications Scotland (QS) digital assessments."
             },
             {
                 id: "ms365_grammar",
@@ -600,8 +600,8 @@
                 platform: "Microsoft 365",
                 category: "Motor",
                 title: "Dictation & Predictive Text",
-                desc: "Offers voice typing with automatic punctuation punctuation, alongside real-time predictive text suggestions via Microsoft Editor.",
-                scotlandUse: "Provides valuable writing support for students experiencing dysgraphia, visual-motor delay, or hand tremors."
+                desc: "Offers voice typing with automatic punctuation, alongside real-time predictive text suggestions via Microsoft Editor.",
+                scotlandUse: "Provides valuable writing support for students experiencing dysgraphia, visual-motor delay, or hand tremors during regular coursework and digital assessments."
             },
             {
                 id: "ms365_math_assistant",
@@ -829,6 +829,7 @@
             document.documentElement.style.fontSize = `${baseFontSize}px`;
         }
 
+        // Reset text size to standard
         function resetFontSize() {
             baseFontSize = 16;
             document.documentElement.style.fontSize = `${baseFontSize}px`;
@@ -859,12 +860,14 @@
             updatePlannerWorkspace();
         }
 
+        // Clear dynamic elements in hand builder
         function clearPlanner() {
             selectedPlannerIds.clear();
             render();
             updatePlannerWorkspace();
         }
 
+        // Refresh planner views
         function updatePlannerWorkspace() {
             const workspaceList = document.getElementById("plannerCardsList");
             const emptyMsg = document.getElementById("plannerEmptyMsg");
@@ -950,11 +953,3 @@
     </script>
 </body>
 </html>
-
-
-### Core Architectural Features:
-* **Embedded SVG Icons & Localized Font Loading:** Completely self-contained script assets ensure that your tool runs securely even on restrictive public sector filters and intranet pathways.
-* **SQA and CfE Compliance Alignment:** The "Scottish Classroom Tips" directly reference real application settings (such as using Guided Access for internal SQA exams or Mono Audio settings for individual pupil visual-motor accommodations), making it instantly relatable to local teachers.
-* **Interactive Training Planner (Webinar Tool):** Educators can pin specific features, write customized lesson application scenarios, and save a cleanly typeset PDF layout to provide physical takeaways.
-
-You can save this file exactly as `index.html` and upload it to your GitHub repository to go live!
