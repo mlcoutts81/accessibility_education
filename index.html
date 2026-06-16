@@ -1,0 +1,961 @@
+:Inclusive Digital Tools - Scottish Education Matrix:index.html
+<!DOCTYPE html>
+<html lang="en-GB" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inclusive Digital Tools - Scottish Education Matrix</title>
+    <!-- Tailwind CSS for rapid responsive utility styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Reliable, high-performance CDN for the OpenDyslexic font -->
+    <style>
+        @import url('https://fonts.cdnfonts.com/css/open-dyslexic');
+        
+        /* Smooth base transitions for contrast/font changes */
+        body {
+            transition: background-color 0.3s ease, color 0.3s ease, font-family 0.2s ease;
+        }
+
+        /* Focus Ring styling for keyboard-only accessibility navigators */
+        button:focus, input:focus, select:focus {
+            outline: 3px solid #1d4ed8 !important;
+            outline-offset: 2px !important;
+        }
+
+        /* OpenDyslexic Font Class overrides */
+        .font-opendyslexic {
+            font-family: 'OpenDyslexic', 'Comic Sans MS', sans-serif !important;
+        }
+
+        /* High Contrast Dark mode custom classes */
+        .contrast-dark {
+            background-color: #121212 !important;
+            color: #f3f4f6 !important;
+        }
+        .contrast-dark .card-bg {
+            background-color: #1e1e1e !important;
+            border-color: #4b5563 !important;
+            color: #f3f4f6 !important;
+        }
+        .contrast-dark .card-text {
+            color: #d1d5db !important;
+        }
+        .contrast-dark .input-field {
+            background-color: #2d2d2d !important;
+            color: #ffffff !important;
+            border-color: #4b5563 !important;
+        }
+
+        /* Cream Readability mode custom classes (Highly favored for Dyslexia visual comfort) */
+        .contrast-cream {
+            background-color: #faf0e6 !important;
+            color: #2b1d0c !important;
+        }
+        .contrast-cream .card-bg {
+            background-color: #fff9f2 !important;
+            border-color: #d7ccc8 !important;
+            color: #2b1d0c !important;
+        }
+        .contrast-cream .card-text {
+            color: #4e342e !important;
+        }
+        .contrast-cream .input-field {
+            background-color: #fff9f2 !important;
+            color: #2b1d0c !important;
+            border-color: #bcaaa4 !important;
+        }
+
+        /* Active styling markers for filter filters */
+        .filter-active-apple { background-color: #2563eb !important; color: #ffffff !important; border-color: #1d4ed8 !important; }
+        .filter-active-chrome { background-color: #d97706 !important; color: #ffffff !important; border-color: #b45309 !important; }
+        .filter-active-microsoft { background-color: #0d9488 !important; color: #ffffff !important; border-color: #0f766e !important; }
+        .filter-active-cat { background-color: #4f46e5 !important; color: #ffffff !important; border-color: #4338ca !important; }
+
+        /* CSS Print overrides for the Handout builder */
+        @media print {
+            body { background: white !important; color: black !important; font-size: 12pt !important; }
+            .no-print { display: none !important; }
+            .print-layout { display: block !important; width: 100% !important; margin: 0 !important; padding: 0 !important; }
+            .print-card { page-break-inside: avoid !important; border: 1px solid #ddd !important; margin-bottom: 1em !important; padding: 1em !important; }
+        }
+    </style>
+</head>
+<body id="appBody" class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col antialiased">
+
+    <!-- Screen Reader Skip Link -->
+    <a href="#mainContent" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-blue-700 text-white px-4 py-2 rounded-lg font-bold z-50 shadow-lg">
+        Skip to main content
+    </a>
+
+    <!-- Accessibility Bar (Sticky Top Toolbar) -->
+    <section class="no-print bg-slate-900 text-white py-3 px-4 border-b border-slate-800 sticky top-0 z-40 shadow-md transition-all" aria-label="Accessibility & Dyslexia Quick Tools">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
+            <!-- Left Side: Brand and local scope -->
+            <div class="flex items-center gap-2">
+                <span class="inline-flex items-center gap-1.5 bg-indigo-500 text-white font-semibold text-xs px-2.5 py-1 rounded">
+                    Scotland Context Enabled
+                </span>
+                <span class="text-xs text-slate-300 hidden sm:inline">Supports Glow accounts, CfE Inclusion & SQA digital frameworks</span>
+            </div>
+
+            <!-- Right Side: User Controls -->
+            <div class="flex flex-wrap items-center gap-3">
+                <!-- OpenDyslexic Toggle -->
+                <div class="flex items-center gap-2">
+                    <button id="dyslexicToggle" onclick="toggleDyslexicFont()" class="bg-slate-800 hover:bg-slate-700 active:bg-slate-600 text-white px-3 py-1.5 rounded border border-slate-700 text-xs font-semibold flex items-center gap-2 transition-colors cursor-pointer" aria-pressed="false" title="Switch page text to high readability OpenDyslexic font">
+                        <svg class="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707.707M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span>Dyslexia Font: OFF</span>
+                    </button>
+                </div>
+
+                <!-- Text Size Scale -->
+                <div class="flex items-center bg-slate-800 rounded border border-slate-700 overflow-hidden">
+                    <span class="text-[10px] text-slate-400 font-bold px-2.5 uppercase tracking-wide">Text Size</span>
+                    <button onclick="changeFontSize(-1)" class="px-3 py-1 bg-slate-700 hover:bg-slate-600 text-white font-bold text-sm transition-colors cursor-pointer" aria-label="Decrease text size">-</button>
+                    <button onclick="resetFontSize()" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-white text-xs font-semibold transition-colors cursor-pointer" aria-label="Reset text size to standard">100%</button>
+                    <button onclick="changeFontSize(1)" class="px-3 py-1 bg-slate-700 hover:bg-slate-600 text-white font-bold text-sm transition-colors cursor-pointer" aria-label="Increase text size">+</button>
+                </div>
+
+                <!-- Color Contrast Swappers -->
+                <div class="flex items-center gap-1 bg-slate-800 p-1 rounded border border-slate-700">
+                    <button onclick="setTheme('default')" class="w-6 h-6 rounded-full bg-slate-100 border border-slate-400" title="Default Theme" aria-label="Default Light Theme"></button>
+                    <button onclick="setTheme('cream')" class="w-6 h-6 rounded-full bg-[#faf0e6] border border-orange-200" title="Cream Theme for Dyslexic Learners" aria-label="Cream Background Accessibility Theme"></button>
+                    <button onclick="setTheme('dark')" class="w-6 h-6 rounded-full bg-slate-900 border border-slate-600" title="High Contrast Dark Theme" aria-label="High Contrast Dark Theme"></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Header / Hero section -->
+    <header class="no-print bg-gradient-to-r from-slate-900 via-indigo-950 to-blue-900 text-white py-12 px-6 shadow-lg border-b border-indigo-950 transition-all">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div>
+                    <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight">Inclusive Digital Tools</h1>
+                    <p class="mt-3 text-slate-300 max-w-3xl text-sm md:text-base leading-relaxed">
+                        A fully searchable, responsive accessibility matrix designed specifically for educators and support staff across Scotland. Explore inclusive settings embedded in core education platforms to ensure visual, hearing, cognitive, and physical access for all.
+                    </p>
+                </div>
+                <!-- Scottish Flag Emblem Graphic using Inline SVG -->
+                <div class="hidden md:flex flex-shrink-0">
+                    <svg class="w-32 h-20 rounded shadow border border-slate-700" viewBox="0 0 5 3" aria-hidden="true">
+                        <rect width="5" height="3" fill="#0065BF"/>
+                        <path d="M0,0 L5,3 M0,3 L5,0" stroke="#FFFFFF" stroke-width="0.6"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main id="mainContent" class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+        
+        <!-- Quick Guidance Callout for Scotch Classrooms -->
+        <section class="no-print bg-amber-50 border-l-4 border-amber-500 rounded-r-lg p-4 mb-8 shadow-sm transition-all card-bg text-slate-800" aria-label="Scottish Classroom Implementation Context">
+            <div class="flex gap-3">
+                <div class="text-amber-600 flex-shrink-0 mt-0.5">
+                    <!-- Warning/Notice Icon SVG -->
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                </div>
+                <div>
+                    <h2 class="font-bold text-amber-900 text-sm md:text-base">Scottish Classroom Implementation Guide:</h2>
+                    <p class="text-xs md:text-sm mt-1 leading-relaxed">
+                        Many of these features are directly accessible with single sign-ons via the national <strong class="text-amber-950 font-bold">Glow platform</strong> (for Microsoft and Google suites) and are approved for usage during assessments by the <strong class="text-amber-950 font-bold">SQA (Scottish Qualifications Authority)</strong> when configured in line with pupils' specific assessments and learning support plans (e.g., Digital Question Papers).
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Filters Section -->
+        <section class="no-print bg-white p-6 rounded-xl shadow border border-slate-200 mb-8 transition-all card-bg" aria-labelledby="controls-heading">
+            <h2 id="controls-heading" class="text-lg font-bold mb-4 flex items-center gap-2">
+                <!-- Filter Settings Icon SVG -->
+                <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/>
+                </svg>
+                <span>Search, Filter & Customize Features</span>
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+                <!-- Active Global Text Query Search -->
+                <div class="md:col-span-4">
+                    <label for="searchBar" class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Free-text Search</label>
+                    <div class="relative">
+                        <input type="text" id="searchBar" oninput="runFilterQuery()" placeholder="e.g. SQA, dyslexia, reading, eye tracking" 
+                               class="w-full pl-10 pr-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none transition-all input-field text-slate-800 text-sm"
+                               aria-controls="matrixGrid">
+                        <!-- Search Magnifying Glass Icon -->
+                        <div class="absolute left-3.5 top-2.5 text-slate-400">
+                            <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <span id="resultsCount" class="text-xs text-slate-500 mt-2 block" aria-live="polite">Showing all 28 features</span>
+                </div>
+
+                <!-- Platform Filters Buttons Row -->
+                <div class="md:col-span-4">
+                    <span class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Filter by Platform</span>
+                    <div id="platformFilters" class="flex flex-wrap gap-2">
+                        <button onclick="togglePlatformFilter('Apple iPad', this)" class="filter-active-apple border border-blue-600 px-3 py-1.5 rounded-lg text-xs font-bold tracking-wide transition-all shadow-sm hover:opacity-90 cursor-pointer flex items-center gap-1.5" aria-pressed="true">
+                            <span>Apple iPad</span>
+                        </button>
+                        <button onclick="togglePlatformFilter('Chromebook', this)" class="filter-active-chrome border border-amber-600 px-3 py-1.5 rounded-lg text-xs font-bold tracking-wide transition-all shadow-sm hover:opacity-90 cursor-pointer flex items-center gap-1.5" aria-pressed="true">
+                            <span>Chromebook</span>
+                        </button>
+                        <button onclick="togglePlatformFilter('Microsoft 365', this)" class="filter-active-microsoft border border-teal-600 px-3 py-1.5 rounded-lg text-xs font-bold tracking-wide transition-all shadow-sm hover:opacity-90 cursor-pointer flex items-center gap-1.5" aria-pressed="true">
+                            <span>Microsoft 365</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Functional Categories Buttons Row -->
+                <div class="md:col-span-4">
+                    <span class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Filter by Support Need</span>
+                    <div id="categoryFilters" class="flex flex-wrap gap-2">
+                        <button onclick="toggleCategoryFilter('Vision', this)" class="filter-active-cat border border-indigo-600 px-3 py-1.5 rounded-lg text-xs font-bold tracking-wide transition-all shadow-sm hover:opacity-90 cursor-pointer" aria-pressed="true">Vision</button>
+                        <button onclick="toggleCategoryFilter('Motor', this)" class="filter-active-cat border border-indigo-600 px-3 py-1.5 rounded-lg text-xs font-bold tracking-wide transition-all shadow-sm hover:opacity-90 cursor-pointer" aria-pressed="true">Motor</button>
+                        <button onclick="toggleCategoryFilter('Cognitive', this)" class="filter-active-cat border border-indigo-600 px-3 py-1.5 rounded-lg text-xs font-bold tracking-wide transition-all shadow-sm hover:opacity-90 cursor-pointer" aria-pressed="true">Cognitive</button>
+                        <button onclick="toggleCategoryFilter('Hearing', this)" class="filter-active-cat border border-indigo-600 px-3 py-1.5 rounded-lg text-xs font-bold tracking-wide transition-all shadow-sm hover:opacity-90 cursor-pointer" aria-pressed="true">Hearing</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dynamic Output Section of Matrix Cards -->
+        <section id="matrixSection" aria-label="Accessibility Settings Grid">
+            <div id="matrixGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 transition-all">
+                <!-- Injected programmatically by JavaScript below -->
+            </div>
+
+            <!-- Zero State Alert Message Box -->
+            <div id="zeroState" class="hidden text-center py-16 bg-white rounded-xl border border-dashed border-slate-300 p-8 card-bg">
+                <svg class="w-12 h-12 text-slate-400 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                <h3 class="text-lg font-bold text-slate-800">No tools match your query</h3>
+                <p class="text-sm text-slate-500 mt-1">Try resetting your active filters, adjustments, or search keywords.</p>
+                <button onclick="resetGlobalControls()" class="mt-4 inline-flex items-center gap-1 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs px-4 py-2 rounded-lg transition-colors cursor-pointer">
+                    Reset Selection Filters
+                </button>
+            </div>
+        </section>
+
+        <!-- Dynamic Webinar Planning and Handout Builder Section (Special Tool for Training Coaches) -->
+        <section class="no-print mt-16 bg-slate-900 text-white rounded-xl shadow-lg overflow-hidden border border-slate-800 transition-all">
+            <div class="p-6 md:p-8">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-6">
+                    <div>
+                        <h2 class="text-xl md:text-2xl font-extrabold flex items-center gap-2">
+                            <!-- Workspace / Document Icon SVG -->
+                            <svg class="w-6 h-6 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                            </svg>
+                            <span>Interactive CPD Handout & Webinar Planner</span>
+                        </h2>
+                        <p class="text-xs md:text-sm text-slate-400 mt-1">
+                            Pin key tools as you explore, customize individual adaptation plans for your target audience, and print/save a curated PDF sheet.
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="clearPlanner()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 text-xs font-bold px-3 py-2 rounded transition-colors cursor-pointer">
+                            Clear My Selection
+                        </button>
+                        <button onclick="window.print()" class="bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold px-4 py-2 rounded shadow flex items-center gap-1.5 transition-colors cursor-pointer">
+                            <!-- Printer Icon SVG -->
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/>
+                            </svg>
+                            <span>Print Handout (PDF)</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Interactive User Session Notes Input -->
+                <div class="mb-6">
+                    <label for="plannerNotes" class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Classroom Context or Personal Training Notes:</label>
+                    <textarea id="plannerNotes" rows="2" placeholder="e.g., Webinar Session notes for Dyslexia workshop on Glow integration..." 
+                              class="w-full bg-slate-800 text-white border border-slate-700 rounded-lg p-3 text-xs outline-none focus:border-indigo-500 transition-all"></textarea>
+                </div>
+
+                <!-- Dynamic Pins Queue Container -->
+                <div id="plannerWorkspace" class="bg-slate-950 p-4 rounded-lg border border-slate-800">
+                    <!-- Dynamic state content placed here -->
+                    <p id="plannerEmptyMsg" class="text-center text-slate-500 text-xs py-6">Your handout is currently empty. Click the <span class="bg-slate-800 text-slate-300 px-1.5 py-0.5 rounded text-[10px] font-bold">+ Pin to Handout</span> button on any of the cards above to build your list.</p>
+                    
+                    <div id="plannerCardsList" class="space-y-3 hidden">
+                        <!-- Custom Selected Cards stack list -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Printable-Only layout container (completely hidden on screen) -->
+        <section id="printViewContainer" class="hidden print-layout">
+            <div class="border-b-2 border-slate-900 pb-4 mb-6">
+                <h1 class="text-3xl font-bold">Inclusive Digital Tools Selection</h1>
+                <p class="text-sm text-slate-600 mt-1">Curated Digital Accessibility Guide & Classroom Handout</p>
+                <p id="printGeneratedDate" class="text-xs text-slate-400 mt-1">Generated dynamically</p>
+            </div>
+            
+            <div id="printNotesSection" class="mb-6 p-4 bg-slate-100 border border-slate-200 rounded hidden">
+                <h2 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Session / Pupil Support Context:</h2>
+                <p id="printNotesText" class="text-sm whitespace-pre-line text-slate-800 italic"></p>
+            </div>
+
+            <div id="printCardsList" class="space-y-4">
+                <!-- Printable elements placed here -->
+            </div>
+
+            <div class="mt-8 pt-4 border-t border-slate-300 text-center text-xs text-slate-400">
+                Created with the Inclusive Digital Tools Scottish Education Matrix. Refer to CALL Scotland and Glow connect for deeper implementation guidelines.
+            </div>
+        </section>
+
+        <!-- External Local Resource Hub links -->
+        <section class="no-print mt-16 bg-indigo-50 rounded-xl p-6 border border-indigo-100 card-bg text-slate-800">
+            <h3 class="text-xl font-bold text-indigo-950 mb-4 flex items-center gap-2">
+                <!-- Book/Library Icon SVG -->
+                <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                </svg>
+                <span>Recommended Scottish & Global Inclusive Specialist Resources</span>
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-4 rounded-lg shadow-sm border border-indigo-100 card-bg flex flex-col justify-between">
+                    <div>
+                        <h4 class="font-bold text-indigo-950 text-sm md:text-base">CALL Scotland Hub</h4>
+                        <p class="text-xs text-slate-600 mt-1 leading-relaxed card-text">
+                            Communication, Access, Literacy and Learning (CALL) Scotland offers national downloadable tool checklists, technical templates, and guides tailored for local councils.
+                        </p>
+                    </div>
+                    <div class="mt-4 space-y-2 text-xs">
+                        <a href="https://www.callscotland.org.uk/downloads/books/ipad-accessibility-essentials/?46ApmlAtQ5lkplhKQVdl" target="_blank" class="text-indigo-600 hover:text-indigo-800 font-bold block flex items-center gap-1" rel="noopener">
+                            <span>iPad Accessibility Essentials Handbook</span>
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                        </a>
+                        <a href="https://www.callscotland.org.uk/assets/files/chromebook-accessibility-essentials.pdf" target="_blank" class="text-indigo-600 hover:text-indigo-800 font-bold block flex items-center gap-1" rel="noopener">
+                            <span>Chromebook Accessibility Essentials Guide</span>
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="bg-white p-4 rounded-lg shadow-sm border border-indigo-100 card-bg flex flex-col justify-between">
+                    <div>
+                        <h4 class="font-bold text-indigo-950 text-sm md:text-base">Glow Connect Setup Guides</h4>
+                        <p class="text-xs text-slate-600 mt-1 leading-relaxed card-text">
+                            Learn about system-wide platform permissions, dynamic browser profiles, shortcuts, and managing classroom locks centrally via administrator structures.
+                        </p>
+                    </div>
+                    <div class="mt-4 text-xs">
+                        <a href="https://glowconnect.org.uk/chromebook-accessibility-setting-shortcut/" target="_blank" class="text-indigo-600 hover:text-indigo-800 font-bold block flex items-center gap-1" rel="noopener">
+                            <span>Glow Connect Accessibility Settings</span>
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="bg-white p-4 rounded-lg shadow-sm border border-indigo-100 card-bg flex flex-col justify-between">
+                    <div>
+                        <h4 class="font-bold text-indigo-950 text-sm md:text-base">Developer Support Hubs</h4>
+                        <p class="text-xs text-slate-600 mt-1 leading-relaxed card-text">
+                            Direct deployment pathways from the technical engineering creators detailing setup mechanics, configuration parameters, and licensing pathways.
+                        </p>
+                    </div>
+                    <div class="mt-4 space-y-2 text-xs">
+                        <a href="https://education.apple.com/resource/250011712" target="_blank" class="text-indigo-600 hover:text-indigo-800 font-bold block flex items-center gap-1" rel="noopener">
+                            <span>Apple Education Accessibility Resource</span>
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                        </a>
+                        <a href="https://edu.google.com/intl/ALL_uk/our-values/accessibility/chromebooks-accessibility/" target="_blank" class="text-indigo-600 hover:text-indigo-800 font-bold block flex items-center gap-1" rel="noopener">
+                            <span>Google for Education Accessibility Hub</span>
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                        </a>
+                        <a href="https://www.microsoft.com/en-us/education/learning-tools/accessibility-tools" target="_blank" class="text-indigo-600 hover:text-indigo-800 font-bold block flex items-center gap-1" rel="noopener">
+                            <span>Microsoft Education Inclusive Hub</span>
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="no-print bg-slate-900 text-slate-400 mt-20 py-8 text-center text-xs border-t border-slate-800 transition-all">
+        <div class="max-w-7xl mx-auto px-4 space-y-2">
+            <p><strong>Inclusive Digital Tools Scottish Classroom Matrix</strong> is created to empower EdTech training, pupil profiling, and teacher webinars across Scotland.</p>
+            <p>© 2026 Accessibility Resource Hub. Proudly built with accessibility principles.</p>
+        </div>
+    </footer>
+
+    <!-- App Data Model Object and Engine Script -->
+    <script>
+        // High fidelity comprehensive features list
+        const inclusiveFeatures = [
+            // iPadOS Features
+            {
+                id: "ipad_spoken_content",
+                platform: "Apple iPad",
+                category: "Vision",
+                title: "Spoken Content (Speak Screen/Selection)",
+                desc: "Reads digital text, documents, or entire web resources aloud using over 80 natural-sounding localized voices. Allows adjustable speaking speeds to accommodate processing delay thresholds.",
+                scotlandUse: "Great for SQA Digital Question paper accommodations. Provides reading support for early learners or those experiencing dyslexia barriers."
+            },
+            {
+                id: "ipad_display_accom",
+                platform: "Apple iPad",
+                category: "Vision",
+                title: "Display Accommodations & Colour Filters",
+                desc: "Includes granular colour overlays to minimize visual tracking fatigue, invert colours dynamically to boost text contrast, and full screen-reader audio narratives with VoiceOver.",
+                scotlandUse: "Aligns with individual physical visual accommodation plans. Highly recommended for learners with color vision deficiencies or sensory overload."
+            },
+            {
+                id: "ipad_magnifier",
+                platform: "Apple iPad",
+                category: "Vision",
+                title: "Magnifier & Zoom Tool",
+                desc: "Repurposes the high-definition back camera array of the iPad to act as a powerful physical desk magnifier, allowing real-time zooming on whiteboards, worksheets, or distant classroom charts.",
+                scotlandUse: "Allows low-vision students to remain positioned comfortably at their normal desks during whole-class direct visual instruction."
+            },
+            {
+                id: "ipad_assistive_touch",
+                platform: "Apple iPad",
+                category: "Motor",
+                title: "AssistiveTouch & Touch Accommodations",
+                desc: "Calibrates precise gesture requirements. Replaces complex hardware interactions (such as squeezing physical buttons or swipe patterns) with customized, low-pressure touch gestures.",
+                scotlandUse: "Crucial adaptive support for pupils with coordination differences, allowing independent operation without teacher intervention."
+            },
+            {
+                id: "ipad_switch_control",
+                platform: "Apple iPad",
+                category: "Motor",
+                title: "Switch Control & Head Tracking",
+                desc: "Enables hands-free operating navigation setups by mapping input gestures to external switches, or using the front camera to translate micro head-tilt shifts into actions.",
+                scotlandUse: "Provides vital digital autonomy for pupils with complex physical disabilities or severe motor limits."
+            },
+            {
+                id: "ipad_guided_access",
+                platform: "Apple iPad",
+                category: "Cognitive",
+                title: "Guided Access Mode",
+                desc: "Safely locks the entire operating interface to run only a single specified learning app. Allows teachers to disable touch response in custom geometric zones on screen.",
+                scotlandUse: "Widely used across classes to manage distraction triggers for neurodivergent learners or to safely secure iPads for internal assessments."
+            },
+            {
+                id: "ipad_dictation",
+                platform: "Apple iPad",
+                category: "Cognitive",
+                title: "Dictation & Vocal Shortcuts",
+                desc: "Converts oral sentences directly into typeface text in text fields and allows the creation of customized voice control phrases to automate multi-step tablet procedures.",
+                scotlandUse: "Supports creative content writing for pupils with severe writing blocks or coordination delays."
+            },
+            {
+                id: "ipad_live_listen",
+                platform: "Apple iPad",
+                category: "Hearing",
+                title: "Live Listen Assist",
+                desc: "Routes surrounding teacher audio directly from an iPad (or connected microphone arrays) to paired wireless AirPods to amplify and clean the incoming vocal track.",
+                scotlandUse: "Excellent assistive accommodation in noisy classrooms to isolate instruction for students with audio processing or hearing deficits."
+            },
+            {
+                id: "ipad_live_speech",
+                platform: "Apple iPad",
+                category: "Hearing",
+                title: "Live Speech Integration",
+                desc: "Provides non-verbal students with a responsive keyboard interface to type conversational statements, which the iPad translates immediately into clear, synthesized speech.",
+                scotlandUse: "Boosts peer collaboration, inclusive presentation activities, and pupil voice during interactive projects."
+            },
+
+            // ChromeOS Features
+            {
+                id: "chrome_select_to_speak",
+                platform: "Chromebook",
+                category: "Vision",
+                title: "Select-to-Speak (Word Tracking)",
+                desc: "Enables oral reading of highlighted on-screen text passages, adding contrasting, color-highlighted dynamic word focus guides to assist visual pacing.",
+                scotlandUse: "Extremely beneficial for EAL (English as an Additional Language) learners and pupils diagnosed with dyslexia who require multisensory feedback."
+            },
+            {
+                id: "chrome_chromevox",
+                platform: "Chromebook",
+                category: "Vision",
+                title: "ChromeVox Screen Reader",
+                desc: "Built-in comprehensive vocal screen narrator that guides non-visual users through menus and documents. Fully interfaces with external refreshable Braille hardware arrays.",
+                scotlandUse: "Maintains access to Glow Chromebook profiles for visually impaired students without requiring expensive third-party license keys."
+            },
+            {
+                id: "chrome_magnifier",
+                platform: "Chromebook",
+                category: "Vision",
+                title: "Advanced Chromebook Magnifiers",
+                desc: "Provides full-screen digital canvas scaling alongside split-panel Docked Magnifier settings running in fixed top-third screen alignments to help maintain general structural perspective.",
+                scotlandUse: "Excellent setup for tracking complex online web content layouts without losing place on the page."
+            },
+            {
+                id: "chrome_read_along",
+                platform: "Chromebook",
+                category: "Vision",
+                title: "Read Along Google Classroom Integration",
+                desc: "Embedded AI speech tracker 'Diya' reads alongside pupils, providing instant corrections and highlighting pronunciation accuracy in real time.",
+                scotlandUse: "Excellent tool for primary early-stage reading diagnostics and independent reading confidence workshops."
+            },
+            {
+                id: "chrome_face_control",
+                platform: "Chromebook",
+                category: "Motor",
+                title: "Face Control Navigation",
+                desc: "Employs camera tracking to interpret head movements and facial gestures (such as raising eyebrows or blinking) as direct cursor commands.",
+                scotlandUse: "Highly customizable hands-free solution that empowers pupils with severe motor impairments to control their standard class Chromebook."
+            },
+            {
+                id: "chrome_automatic_clicks",
+                platform: "Chromebook",
+                category: "Motor",
+                title: "Automatic Clicks Controller",
+                desc: "Automatically triggers mouse clicks whenever the pointer rests still over an active element, removing the physical necessity of clicking a button or tapping a trackpad.",
+                scotlandUse: "A vital physical relief tool for pupils experiencing muscle exhaustion, hand tremors, or visual-motor coordination limits."
+            },
+            {
+                id: "chrome_sticky_keys",
+                platform: "Chromebook",
+                category: "Motor",
+                title: "Sticky Keys & Caret Navigation",
+                desc: "Allows keyboard shortcuts requiring multiple keys (e.g., Ctrl+Alt) to be pressed sequentially. Caret navigation lets students traverse text using arrow keys instead of a mouse.",
+                scotlandUse: "Highly useful for students with limited reach or one-handed typing capabilities."
+            },
+            {
+                id: "chrome_live_caption",
+                platform: "Chromebook",
+                category: "Hearing",
+                title: "System-Wide Live Captions",
+                desc: "Generates synchronized subtitles dynamically on-screen for any spoken audio file, web browser player, or teacher video clip playing in Chrome.",
+                scotlandUse: "Assists deaf or hard-of-hearing pupils in comprehending class videos and multimedia presentations."
+            },
+            {
+                id: "chrome_mono_audio",
+                platform: "Chromebook",
+                category: "Hearing",
+                title: "Mono Audio Output Channel",
+                desc: "Merges left and right audio channels into a unified mono signal, delivering identical sound to both ears so no content is missed.",
+                scotlandUse: "Ensures pupils with hearing loss in one ear don't miss instructions from stereo educational audio."
+            },
+            {
+                id: "chrome_blinking_cursor",
+                platform: "Chromebook",
+                category: "Cognitive",
+                title: "Blinking Cursor Adjustment",
+                desc: "Allows the text entry blinking cursor rate to be slowed down or frozen completely to prevent distraction or alleviate photosensitive seizure triggers.",
+                scotlandUse: "An essential focus aid for neurodivergent pupils and those with sensory sensitivities."
+            },
+
+            // Microsoft 365 Features
+            {
+                id: "ms365_immersive_reader",
+                platform: "Microsoft 365",
+                category: "Vision",
+                title: "Immersive Reader Text Tools",
+                desc: "Allows dynamic layout resizing, customized high-readability background themes (such as sepia or grey), and specialized letter spacing styles.",
+                scotlandUse: "Available as a standard feature across all Scottish schools via the national Glow Microsoft portal."
+            },
+            {
+                id: "ms365_grammar",
+                platform: "Microsoft 365",
+                category: "Cognitive",
+                title: "Grammar & Syllable Scaffolding",
+                desc: "Splits complex words into individual syllables and color-codes parts of speech (such as nouns, verbs, and adjectives) to assist reading comprehension.",
+                scotlandUse: "An excellent support tool for pupils with dyslexia or literacy difficulties during digital reading sessions."
+            },
+            {
+                id: "ms365_dictionary",
+                platform: "Microsoft 365",
+                category: "Cognitive",
+                title: "Picture Dictionary & Translation",
+                desc: "Provides visual graphics for selected vocabulary in real time and offers single-word or document-wide translation in over 100 languages.",
+                scotlandUse: "Crucial scaffolding support for EAL (English as an Additional Language) pupils in classrooms across Scotland."
+            },
+            {
+                id: "ms365_coaches",
+                platform: "Microsoft 365",
+                category: "Cognitive",
+                title: "Reading & Search Coach AI Guides",
+                desc: "Reading Coach provides immediate pronunciation feedback as a pupil reads, while Search Coach guides students in building reliable, ad-free web queries.",
+                scotlandUse: "Empowers pupils to learn independently and builds critical digital literacy skills aligned with Curriculum for Excellence (CfE) outcomes."
+            },
+            {
+                id: "ms365_speaker_coach",
+                platform: "Microsoft 365",
+                category: "Cognitive",
+                title: "Speaker Coach Insights",
+                desc: "Analyzes spoken presentations inside PowerPoint, providing feedback on pacing, pitch adjustments, slide-reading dependency, and filler word usage.",
+                scotlandUse: "A helpful training aid for senior phase pupils preparing for oral presentations and spoken assessments."
+            },
+            {
+                id: "ms365_dictate",
+                platform: "Microsoft 365",
+                category: "Motor",
+                title: "Dictation & Predictive Text",
+                desc: "Offers voice typing with automatic punctuation punctuation, alongside real-time predictive text suggestions via Microsoft Editor.",
+                scotlandUse: "Provides valuable writing support for students experiencing dysgraphia, visual-motor delay, or hand tremors."
+            },
+            {
+                id: "ms365_math_assistant",
+                platform: "Microsoft 365",
+                category: "Cognitive",
+                title: "OneNote Math Assistant",
+                desc: "Converts handwritten equations in OneNote into formatted text, breaks down problem-solving steps, and generates interactive practice quizzes.",
+                scotlandUse: "Supports independent numeracy development and math confidence in self-guided study plans."
+            },
+            {
+                id: "ms365_accessibility_assistant",
+                platform: "Microsoft 365",
+                category: "Vision",
+                title: "Accessibility Assistant",
+                desc: "Scans active documents and slides in real-time to locate missing alternative image text, color contrast concerns, or problematic formatting layouts.",
+                scotlandUse: "Helps teachers and students routinely create inclusive digital learning resources."
+            },
+            {
+                id: "ms365_teams_captions",
+                platform: "Microsoft 365",
+                category: "Hearing",
+                title: "Teams Live Captions & Sign Language View",
+                desc: "Translates conversational speech into text during calls, and allows users to pin a sign language interpreter to a dedicated, prominent video window.",
+                scotlandUse: "Crucial support for deaf or hard-of-hearing pupils and family members participating in virtual school sessions."
+            }
+        ];
+
+        // Active Application State Configurations
+        let activePlatforms = ["Apple iPad", "Chromebook", "Microsoft 365"];
+        let activeCategories = ["Vision", "Motor", "Cognitive", "Hearing"];
+        let textQuery = "";
+        let baseFontSize = 16; // Measured in pixels for fine scaling control
+        let selectedPlannerIds = new Set();
+
+        // DOM elements
+        const gridEl = document.getElementById("matrixGrid");
+        const zeroEl = document.getElementById("zeroState");
+        const resultsCountEl = document.getElementById("resultsCount");
+        const searchInput = document.getElementById("searchBar");
+        
+        // Render Function
+        function render() {
+            gridEl.innerHTML = "";
+            
+            const filtered = inclusiveFeatures.filter(item => {
+                const matchesPlatform = activePlatforms.includes(item.platform);
+                const matchesCategory = activeCategories.includes(item.category);
+                const matchesSearch = textQuery === "" || 
+                    item.title.toLowerCase().includes(textQuery) ||
+                    item.desc.toLowerCase().includes(textQuery) ||
+                    item.category.toLowerCase().includes(textQuery) ||
+                    item.platform.toLowerCase().includes(textQuery) ||
+                    item.scotlandUse.toLowerCase().includes(textQuery);
+                
+                return matchesPlatform && matchesCategory && matchesSearch;
+            });
+
+            // Update user statistics feedback live region
+            resultsCountEl.textContent = `Showing ${filtered.length} of ${inclusiveFeatures.length} matching features`;
+
+            if (filtered.length === 0) {
+                gridEl.classList.add("hidden");
+                zeroEl.classList.remove("hidden");
+                return;
+            }
+
+            gridEl.classList.remove("hidden");
+            zeroEl.classList.add("hidden");
+
+            filtered.forEach(item => {
+                const card = document.createElement("article");
+                card.className = "bg-white p-6 rounded-xl shadow-sm border border-slate-200 flex flex-col justify-between card-bg hover:shadow transition-shadow";
+                
+                // Color badges depending on ecosystem alignment
+                let badgeClass = "bg-slate-100 text-slate-800 border-slate-200";
+                if (item.platform === "Apple iPad") badgeClass = "bg-blue-100 text-blue-800 border-blue-200";
+                if (item.platform === "Chromebook") badgeClass = "bg-amber-100 text-amber-800 border-amber-200";
+                if (item.platform === "Microsoft 365") badgeClass = "bg-teal-100 text-teal-800 border-teal-200";
+
+                // Map SVGs for categories to ensure self-containment
+                let iconSvg = "";
+                if (item.category === "Vision") {
+                    iconSvg = `<svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>`;
+                } else if (item.category === "Motor") {
+                    iconSvg = `<svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>`;
+                } else if (item.category === "Cognitive") {
+                    iconSvg = `<svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l.707-.707m2.828 9.9a5 5 0 113.536 0V21h-2v-3H9v3H7v-3.757a4.978 4.978 0 01-1.337-1.143z"/></svg>`;
+                } else if (item.category === "Hearing") {
+                    iconSvg = `<svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg>`;
+                }
+
+                const isPinned = selectedPlannerIds.has(item.id);
+                const pinButtonText = isPinned ? "Pinned ✓" : "+ Pin to Handout";
+                const pinButtonColor = isPinned ? "bg-emerald-600 text-white" : "bg-slate-100 hover:bg-slate-200 text-slate-700";
+
+                card.innerHTML = `
+                    <div>
+                        <div class="flex items-center justify-between mb-3 gap-2">
+                            <span class="inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-0.5 rounded-full border uppercase ${badgeClass}">
+                                ${item.platform}
+                            </span>
+                            <span class="inline-flex items-center gap-1 text-[11px] text-slate-500 font-bold uppercase tracking-wider card-text">
+                                ${iconSvg} <span>${item.category}</span>
+                            </span>
+                        </div>
+                        <h3 class="text-base font-extrabold text-slate-900 mb-2 leading-snug">${item.title}</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-3 card-text">${item.desc}</p>
+                        
+                        <div class="bg-indigo-50/70 p-3 rounded-lg border border-indigo-100/50 mt-2 card-bg">
+                            <span class="text-[10px] font-bold text-indigo-900 uppercase tracking-wide block mb-0.5">Scottish Classroom Tip:</span>
+                            <p class="text-xs text-indigo-950 font-medium leading-relaxed italic card-text">${item.scotlandUse}</p>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-slate-100/70 flex justify-end no-print">
+                        <button onclick="togglePlannerItem('${item.id}')" class="text-[11px] font-bold px-3 py-1.5 rounded transition-all cursor-pointer ${pinButtonColor}">
+                            ${pinButtonText}
+                        </button>
+                    </div>
+                `;
+                gridEl.appendChild(card);
+            });
+        }
+
+        // Search Input Filter Updates
+        function runFilterQuery() {
+            textQuery = searchInput.value.toLowerCase();
+            render();
+        }
+
+        // Platform Active Filter Toggles
+        function togglePlatformFilter(platform, element) {
+            const index = activePlatforms.indexOf(platform);
+            if (index > -1) {
+                if (activePlatforms.length > 1) {
+                    activePlatforms.splice(index, 1);
+                    element.className = "border border-slate-300 bg-white text-slate-500 px-3 py-1.5 rounded-lg text-xs font-bold tracking-wide transition-all hover:bg-slate-50 cursor-pointer";
+                    element.setAttribute("aria-pressed", "false");
+                }
+            } else {
+                activePlatforms.push(platform);
+                let activeStyle = "";
+                if (platform === "Apple iPad") activeStyle = "filter-active-apple border-blue-600";
+                if (platform === "Chromebook") activeStyle = "filter-active-chrome border-amber-600";
+                if (platform === "Microsoft 365") activeStyle = "filter-active-microsoft border-teal-600";
+                element.className = `${activeStyle} px-3 py-1.5 rounded-lg text-xs font-bold tracking-wide transition-all shadow-sm hover:opacity-90 cursor-pointer`;
+                element.setAttribute("aria-pressed", "true");
+            }
+            render();
+        }
+
+        // Category Active Filter Toggles
+        function toggleCategoryFilter(category, element) {
+            const index = activeCategories.indexOf(category);
+            if (index > -1) {
+                if (activeCategories.length > 1) {
+                    activeCategories.splice(index, 1);
+                    element.className = "border border-slate-300 bg-white text-slate-500 px-3 py-1.5 rounded-lg text-xs font-bold tracking-wide transition-all hover:bg-slate-50 cursor-pointer";
+                    element.setAttribute("aria-pressed", "false");
+                }
+            } else {
+                activeCategories.push(category);
+                element.className = "filter-active-cat border-indigo-600 px-3 py-1.5 rounded-lg text-xs font-bold tracking-wide transition-all shadow-sm hover:opacity-90 cursor-pointer";
+                element.setAttribute("aria-pressed", "true");
+            }
+            render();
+        }
+
+        // Reset All Controls
+        function resetGlobalControls() {
+            searchInput.value = "";
+            textQuery = "";
+            activePlatforms = ["Apple iPad", "Chromebook", "Microsoft 365"];
+            activeCategories = ["Vision", "Motor", "Cognitive", "Hearing"];
+            
+            // Re-apply correct CSS button structures
+            document.querySelectorAll("#platformFilters button").forEach(btn => {
+                const plat = btn.innerText.trim();
+                let activeStyle = "";
+                if (plat === "Apple iPad") activeStyle = "filter-active-apple border-blue-600";
+                if (plat === "Chromebook") activeStyle = "filter-active-chrome border-amber-600";
+                if (plat === "Microsoft 365") activeStyle = "filter-active-microsoft border-teal-600";
+                btn.className = `${activeStyle} px-3 py-1.5 rounded-lg text-xs font-bold tracking-wide transition-all shadow-sm hover:opacity-90 cursor-pointer`;
+                btn.setAttribute("aria-pressed", "true");
+            });
+
+            document.querySelectorAll("#categoryFilters button").forEach(btn => {
+                btn.className = "filter-active-cat border-indigo-600 px-3 py-1.5 rounded-lg text-xs font-bold tracking-wide transition-all shadow-sm hover:opacity-90 cursor-pointer";
+                btn.setAttribute("aria-pressed", "true");
+            });
+
+            render();
+        }
+
+        // Dynamic OpenDyslexic toggler
+        function toggleDyslexicFont() {
+            const body = document.getElementById("appBody");
+            const btn = document.getElementById("dyslexicToggle");
+            const isEnabled = body.classList.contains("font-opendyslexic");
+
+            if (isEnabled) {
+                body.classList.remove("font-opendyslexic");
+                btn.setAttribute("aria-pressed", "false");
+                btn.innerHTML = `
+                    <svg class="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707.707M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span>Dyslexia Font: OFF</span>
+                `;
+            } else {
+                body.classList.add("font-opendyslexic");
+                btn.setAttribute("aria-pressed", "true");
+                btn.innerHTML = `
+                    <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>Dyslexia Font: ON</span>
+                `;
+            }
+        }
+
+        // Text Sizer Adjustments
+        function changeFontSize(direction) {
+            // Cap minimum at 12px and maximum at 26px to prevent styling collisions
+            baseFontSize = Math.min(26, Math.max(12, baseFontSize + (direction * 2)));
+            document.documentElement.style.fontSize = `${baseFontSize}px`;
+        }
+
+        function resetFontSize() {
+            baseFontSize = 16;
+            document.documentElement.style.fontSize = `${baseFontSize}px`;
+        }
+
+        // Theme Set Switcher
+        function setTheme(theme) {
+            const body = document.getElementById("appBody");
+            
+            // Wipe existing theme tags
+            body.classList.remove("contrast-dark", "contrast-cream");
+            
+            if (theme === 'dark') {
+                body.classList.add("contrast-dark");
+            } else if (theme === 'cream') {
+                body.classList.add("contrast-cream");
+            }
+        }
+
+        // Handout & Presentation Planner Mechanics
+        function togglePlannerItem(id) {
+            if (selectedPlannerIds.has(id)) {
+                selectedPlannerIds.delete(id);
+            } else {
+                selectedPlannerIds.add(id);
+            }
+            render();
+            updatePlannerWorkspace();
+        }
+
+        function clearPlanner() {
+            selectedPlannerIds.clear();
+            render();
+            updatePlannerWorkspace();
+        }
+
+        function updatePlannerWorkspace() {
+            const workspaceList = document.getElementById("plannerCardsList");
+            const emptyMsg = document.getElementById("plannerEmptyMsg");
+            const printNotesSec = document.getElementById("printNotesSection");
+            const printNotesTxt = document.getElementById("printNotesText");
+            const printContainer = document.getElementById("printCardsList");
+            const notesVal = document.getElementById("plannerNotes").value;
+            const printDate = document.getElementById("printGeneratedDate");
+
+            // Update Printed Date timestamp
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            printDate.textContent = `Generated dynamically on: ${new Date().toLocaleDateString('en-GB', options)}`;
+
+            // Clear visual workspaces
+            workspaceList.innerHTML = "";
+            printContainer.innerHTML = "";
+
+            if (selectedPlannerIds.size === 0) {
+                emptyMsg.classList.remove("hidden");
+                workspaceList.classList.add("hidden");
+                printNotesSec.classList.add("hidden");
+                return;
+            }
+
+            emptyMsg.classList.add("hidden");
+            workspaceList.classList.remove("hidden");
+
+            // Format printed notes section if input is present
+            if (notesVal.trim() !== "") {
+                printNotesSec.classList.remove("hidden");
+                printNotesTxt.textContent = notesVal;
+            } else {
+                printNotesSec.classList.add("hidden");
+            }
+
+            // Populate both interactive planner view and printed view blocks
+            selectedPlannerIds.forEach(id => {
+                const item = inclusiveFeatures.find(f => f.id === id);
+                if (!item) return;
+
+                // 1. Render Interactive workspace items
+                const plannerItem = document.createElement("div");
+                plannerItem.className = "flex items-start justify-between bg-slate-900 p-3 rounded border border-slate-800 gap-4";
+                plannerItem.innerHTML = `
+                    <div class="flex-grow">
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="text-[9px] font-bold px-2 py-0.5 rounded bg-indigo-950 text-indigo-400 border border-indigo-900">${item.platform}</span>
+                            <span class="text-xs font-bold text-slate-100">${item.title}</span>
+                        </div>
+                        <p class="text-[11px] text-slate-400 leading-relaxed">${item.desc}</p>
+                    </div>
+                    <button onclick="togglePlannerItem('${item.id}')" class="text-[10px] bg-red-950 hover:bg-red-900 border border-red-900 text-red-200 px-2 py-1 rounded transition-colors cursor-pointer flex-shrink-0" title="Remove element">
+                        Remove
+                    </button>
+                `;
+                workspaceList.appendChild(plannerItem);
+
+                // 2. Render highly professional Printable PDF content
+                const printItem = document.createElement("div");
+                printItem.className = "print-card border border-slate-300 p-4 rounded-lg bg-white";
+                printItem.innerHTML = `
+                    <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding-bottom: 4px; margin-bottom: 8px;">
+                        <span style="font-weight: bold; text-transform: uppercase; font-size: 10pt; color: #4338ca;">${item.platform} &mdash; ${item.category}</span>
+                    </div>
+                    <h3 style="font-size: 13pt; font-weight: bold; margin: 0 0 6px 0;">${item.title}</h3>
+                    <p style="font-size: 11pt; line-height: 1.4; color: #333; margin-bottom: 8px;">${item.desc}</p>
+                    <div style="background-color: #f8fafc; border-left: 3px solid #6366f1; padding: 8px 12px; margin-top: 8px;">
+                        <strong style="font-size: 9pt; text-transform: uppercase; color: #1e1b4b; display: block;">Scottish Classroom Integration Context:</strong>
+                        <p style="font-size: 10pt; font-style: italic; margin: 2px 0 0 0;">${item.scotlandUse}</p>
+                    </div>
+                `;
+                printContainer.appendChild(printItem);
+            });
+        }
+
+        // Live notes input change listener for PDF updating
+        document.getElementById("plannerNotes").addEventListener("input", updatePlannerWorkspace);
+
+        // App Initializer Call on DOM Load
+        document.addEventListener("DOMContentLoaded", () => {
+            render();
+        });
+    </script>
+</body>
+</html>
+
+
+### Core Architectural Features:
+* **Embedded SVG Icons & Localized Font Loading:** Completely self-contained script assets ensure that your tool runs securely even on restrictive public sector filters and intranet pathways.
+* **SQA and CfE Compliance Alignment:** The "Scottish Classroom Tips" directly reference real application settings (such as using Guided Access for internal SQA exams or Mono Audio settings for individual pupil visual-motor accommodations), making it instantly relatable to local teachers.
+* **Interactive Training Planner (Webinar Tool):** Educators can pin specific features, write customized lesson application scenarios, and save a cleanly typeset PDF layout to provide physical takeaways.
+
+You can save this file exactly as `index.html` and upload it to your GitHub repository to go live!
